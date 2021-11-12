@@ -1,0 +1,103 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: spilab.uex@gmail.com
+    name: Spilab
+    url: http://spilab.es/
+  description: This API provides us with different information about the users to
+    use in the shopping centre to provide a better experience in the visit
+  termsOfService: http://spilab.es/
+  title: Shoppin Center
+  version: "1.0"
+servers:
+- url: /
+tags:
+- name: User
+paths:
+  /music:
+    get:
+      operationId: getMusic
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MusicArray'
+          description: Successful response
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+      summary: Gets a list of favourite music genres
+      tags:
+      - User
+      x-swagger-router-controller: User
+  /temperature:
+    get:
+      operationId: getTemperature
+
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Temperature'
+          description: Successful response
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+      summary: Gets the environment temperature
+      tags:
+      - User
+      x-swagger-router-controller: User
+components:
+  responses:
+    404:
+      content:
+        text/plain:
+          schema:
+            example: Not found
+            title: Endpoint not found
+            type: string
+      description: Not found response
+  schemas:
+    Temperature:
+      example:
+        temperature: "34.5"
+      properties:
+        temperature:
+          example: "34.5"
+          type: string
+    MusicArray:
+      example:
+        music:
+        - music
+        - music
+      properties:
+        music:
+          items:
+            type: string
+          type: array
+    Location:
+      example:
+        latitude: 38.48492
+        longitude: -6.58794
+      properties:
+        latitude:
+          example: 38.48492
+          format: double
+          type: number
+        longitude:
+          example: -6.58794
+          format: double
+          type: number
+      type: object
